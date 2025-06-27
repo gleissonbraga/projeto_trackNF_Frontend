@@ -14,6 +14,15 @@ export default function Fornecedores() {
   );
   const [showRegister, setShowRegister] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectSupplier, setSelectSupplier] = useState<TypeSupplier | null>(null);
+  const itemsPerPage = 9;
+  const totalPages = Math.ceil(suppliers.length / itemsPerPage);
+
+  const paginatedSuppliers = suppliers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   function formatCNPJ(cnpj: string) {
     return cnpj.replace(
@@ -61,7 +70,7 @@ export default function Fornecedores() {
         <div className="w-[90%] flex gap-2">
           <button
             className={` ${
-              isHovered == "Cadastrar Fornecedor" ? "w-[20%]" : "w-12"
+              isHovered == "Cadastrar Fornecedor" ? "min-w-[20%]" : "w-12"
             } flex font-semibold text-base gap-1 rounded-lg p-2 bg-blue-600 hover:text-white  duration-500`}
             onMouseEnter={() => setIsHovered("Cadastrar Fornecedor")}
             onMouseLeave={() => setIsHovered(null)}
@@ -82,7 +91,7 @@ export default function Fornecedores() {
 
           <span
             className={` ${
-              isHovered == "Fornecedores Ativos" ? "w-[22%]" : "w-[7%]"
+              isHovered == "Fornecedores Ativos" ? "min-w-[22%]" : "min-w-[7%]"
             } flex gap-2 font-semibold text-base rounded-lg p-2 bg-[#22C55E] text-white  duration-500 cursor-pointer`}
             onMouseEnter={() => setIsHovered("Fornecedores Ativos")}
             onMouseLeave={() => setIsHovered(null)}
@@ -100,12 +109,12 @@ export default function Fornecedores() {
 
           <span
             className={` ${
-              isHovered == "Fornecedores Inativos" ? "w-[22%]" : "w-[7%]"
+              isHovered == "Fornecedores Inativos" ? "min-w-[22%]" : "min-w-[7%]"
             } flex gap-2 font-semibold text-base rounded-lg p-2 bg-[#EF4444] text-white  duration-500 cursor-pointer`}
             onMouseEnter={() => setIsHovered("Fornecedores Inativos")}
             onMouseLeave={() => setIsHovered(null)}
           >
-            <img src="/svg/fornecedor_ativo.svg" className="inline w-6"></img>{" "}
+            <img src="/svg/fornecedor_inativo.svg" className="inline w-6"></img>{" "}
             {suppliersInactive.length}
             <SidebarItem
               label="Fornecedores Inativos"
@@ -116,7 +125,7 @@ export default function Fornecedores() {
             />
           </span>
         </div>
-        <div className="w-[98%] h-80 mt-6">
+        <div className="w-[98%] min-h-[29rem] mt-6 flex flex-col justify-between">
           <table className="min-w-full table-auto border-collapse  border-l w-full">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-sm ">
@@ -128,8 +137,11 @@ export default function Fornecedores() {
               </tr>
             </thead>
             <tbody className="text-sm text-gray-800">
-              {suppliers.map((supplier) => (
-                <tr className="border-b hover:bg-gray-50">
+              {paginatedSuppliers.map((supplier) => (
+                <tr
+                  key={supplier.id_supplier}
+                  className="border-b hover:bg-gray-50"
+                >
                   <td className="px-4 border-r py-2">
                     {supplier.fantasy_name.toUpperCase()}
                   </td>
@@ -137,7 +149,12 @@ export default function Fornecedores() {
                     {formatCNPJ(supplier.cnpj)}
                   </td>
                   <td className="px-4 border-r py-2">
-                    <a href={`mailto:${supplier.email}`} className="hover:text-[#0000FF] hover:underline">{supplier.email == "" ? "--------------" : supplier.email}</a>
+                    <a
+                      href={`mailto:${supplier.email}`}
+                      className="hover:text-[#0000FF] hover:underline"
+                    >
+                      {supplier.email == "" ? "--------------" : supplier.email}
+                    </a>
                   </td>
                   <td className="px-4 border-r py-2 flex justify-center">
                     {supplier.status == "ATIVO" ? (
@@ -148,7 +165,7 @@ export default function Fornecedores() {
                   </td>
                   <td className="px-4 border-r py-2">
                     <div className="flex gap-4 justify-center w-[100%]">
-                      <button onClick={handleUpdate}>
+                      <button onClick={() => {handleUpdate(); setSelectSupplier(supplier)}}>
                         <img
                           src="/svg/ditar.svg"
                           alt=""
@@ -169,8 +186,31 @@ export default function Fornecedores() {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center mt-4 gap-4">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+            >
+              Anterior
+            </button>
+
+            <span className="text-gray-700 font-semibold">
+              Página {currentPage} de {totalPages}
+            </span>
+
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+            >
+              Próxima
+            </button>
+          </div>
           {showUpdate && (
-            <UpdateSupplier onClose={() => setShowUpdate(false)} />
+            <UpdateSupplier onClose={() => setShowUpdate(false)} selectSupplier={selectSupplier} />
           )}
         </div>
       </div>
