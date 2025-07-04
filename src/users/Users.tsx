@@ -1,34 +1,29 @@
 import { useEffect, useState } from "react";
-import "../css/button.css";
-import type { TypeSupplier } from "./types/Suppliers";
 import apiClient from "../api/apiClient";
-import RegisterSupplier from "./components/RegisterSupplier";
-import UpdateSupplier from "./components/UpdateSupplier";
+import type { TypeUsers } from "./Types/TypeUsers";
+import formatDate from "../utils/formatDate";
+import RegisterUser from "./components/RegisterUser";
+import UpdateUser from "./components/UpdateUser";
 
-export default function Fornecedores() {
+export default function Users() {
   const [isHovered, setIsHovered] = useState<string | null>(null);
-  const [suppliers, setSuppliers] = useState<TypeSupplier[]>([]);
-  const [suppliersActive, setSuppliersActive] = useState<TypeSupplier[]>([]);
-  const [suppliersInactive, setSuppliersInactive] = useState<TypeSupplier[]>(
-    []
-  );
   const [showRegister, setShowRegister] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectSupplier, setSelectSupplier] = useState<TypeSupplier | null>(null);
+  const [users, setUsers] = useState<TypeUsers[]>([]);
+  const [usersActive, setUsersActive] = useState<TypeUsers[]>([]);
+  const [usersInactive, setUsersInactive] = useState<TypeUsers[]>([]);
+  const [selectUser, setSelectUser] = useState<TypeUsers | null>(null);
   const itemsPerPage = 9;
-  const totalPages = Math.ceil(suppliers.length / itemsPerPage);
+  const totalPages = Math.ceil(users.length / itemsPerPage);
 
-  const paginatedSuppliers = suppliers.slice(
+  const paginatedUsers = users.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  function formatCNPJ(cnpj: string) {
-    return cnpj.replace(
-      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-      "$1.$2.$3/$4-$5"
-    );
+  function formatCPF(cpf: string) {
+    return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
   }
 
   const handleRegister = () => {
@@ -40,18 +35,18 @@ export default function Fornecedores() {
 
   useEffect(() => {
     async function fetchSuppliers() {
-      const response = await apiClient.get("/api/fornecedores");
-      setSuppliers(response.data);
+      const response = await apiClient.get("/api/usuarios/");
+      setUsers(response.data);
     }
 
     async function fechSuppliersActive() {
-      const response = await apiClient.get("/api/fornecedores/ativos");
-      setSuppliersActive(response.data);
+      const response = await apiClient.get("/api/usuarios/ativos");
+      setUsersActive(response.data);
     }
 
     async function fechSuppliersInactive() {
-      const response = await apiClient.get("/api/fornecedores/inativos");
-      setSuppliersInactive(response.data);
+      const response = await apiClient.get("/api/usuarios/inativos");
+      setUsersInactive(response.data);
     }
 
     fechSuppliersInactive();
@@ -62,45 +57,46 @@ export default function Fornecedores() {
   return (
     <div className="w-full h-screen pl-20 flex justify-center items-center bg-[#f3f2f2]">
       <div className="w-[90%] min-h-[620px] rounded-xl shadow-xl flex items-center p-2 bg-white flex-col">
-        <div className="bg-gray-500 h-16 w-[60%] rounded-lg relative top-[-40px] text-white flex items-center pl-4 justify-center shadow-2xl">
+        <div className="bg-blue-400 h-16 w-[60%] rounded-lg relative top-[-40px] text-white flex items-center pl-4 justify-center shadow-2xl">
           <h2 className="relative font-bold uppercase text-4xl break-all">
-            Fornecedores
+            Usuários
           </h2>
         </div>
         <div className="w-[90%] flex gap-2">
           <button
             className={` ${
-              isHovered == "Cadastrar Fornecedor" ? "min-w-[20%]" : "w-12"
+              isHovered == "Cadastrar Usuário" ? "min-w-[18%]" : "w-12"
             } flex font-semibold text-base gap-1 rounded-lg p-2 bg-blue-600 hover:text-white  duration-500`}
-            onMouseEnter={() => setIsHovered("Cadastrar Fornecedor")}
+            onMouseEnter={() => setIsHovered("Cadastrar Usuário")}
             onMouseLeave={() => setIsHovered(null)}
             onClick={handleRegister}
           >
             <img src="/svg/add.svg" className="inline w-6"></img>
             <SidebarItem
-              label="Cadastrar Fornecedor"
-              isHovered={isHovered == "Cadastrar Fornecedor"}
+              label="Cadastrar Usuário"
+              isHovered={isHovered == "Cadastrar Usuário"}
               className={
                 "flex items-center gap-1 rounded transition-all duration-500 text-white"
               }
             />
           </button>
           {showRegister && (
-            <RegisterSupplier onClose={() => setShowRegister(false)} />
+            <RegisterUser onClose={() => setShowRegister(false)} />
           )}
 
           <span
             className={` ${
-              isHovered == "Fornecedores Ativos" ? "min-w-[22%]" : "min-w-[7%]"
+              isHovered == "Usuários Ativos" ? "min-w-[15%]" : "min-w-[7%]"
             } flex gap-2 font-semibold text-base rounded-lg p-2 bg-[#22C55E] text-white  duration-500 cursor-pointer`}
-            onMouseEnter={() => setIsHovered("Fornecedores Ativos")}
+            onMouseEnter={() => setIsHovered("Usuários Ativos")}
             onMouseLeave={() => setIsHovered(null)}
           >
-            <img src="/svg/fornecedor_ativo.svg" className="inline w-6"></img>{" "}
-            {suppliersActive.length}
+            <img src="/svg/fornecedor_ativo.svg" className="inline w-6"></img>
+            {usersActive.length}
+
             <SidebarItem
-              label="Fornecedores Ativos"
-              isHovered={isHovered == "Fornecedores Ativos"}
+              label="Usuários Ativos"
+              isHovered={isHovered == "Usuários Ativos"}
               className={
                 "flex items-center gap-1 rounded transition-all duration-500 text-white"
               }
@@ -109,16 +105,18 @@ export default function Fornecedores() {
 
           <span
             className={` ${
-              isHovered == "Fornecedores Inativos" ? "min-w-[22%]" : "min-w-[7%]"
+              isHovered == "Usuários Inativos"
+                ? "min-w-[15%]"
+                : "min-w-[7%]"
             } flex gap-2 font-semibold text-base rounded-lg p-2 bg-[#EF4444] text-white  duration-500 cursor-pointer`}
-            onMouseEnter={() => setIsHovered("Fornecedores Inativos")}
+            onMouseEnter={() => setIsHovered("Usuários Inativos")}
             onMouseLeave={() => setIsHovered(null)}
           >
-            <img src="/svg/fornecedor_inativo.svg" className="inline w-6"></img>{" "}
-            {suppliersInactive.length}
+            <img src="/svg/fornecedor_inativo.svg" className="inline w-6"></img>
+            {usersInactive.length}
             <SidebarItem
-              label="Fornecedores Inativos"
-              isHovered={isHovered == "Fornecedores Inativos"}
+              label="Usuários Inativos"
+              isHovered={isHovered == "Usuários Inativos"}
               className={
                 "flex items-center gap-1 rounded transition-all duration-500 text-white"
               }
@@ -130,42 +128,32 @@ export default function Fornecedores() {
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-sm ">
                 <th className="px-4 border-r py-2 text-left">Nome</th>
-                <th className="px-4 border-r py-2 text-left">CNPJ</th>
+                <th className="px-4 border-r py-2 text-left">CPF</th>
                 <th className="px-4 border-r py-2 text-left">Email</th>
-                <th className="px-4 border-r py-2 text-left">Ativos</th>
+                <th className="px-4 border-r py-2 text-left">Data Cadastro</th>
+                <th className="px-4 border-r py-2 text-left">Ativo</th>
                 <th className="px-4 border-r py-2 text-left">Ações</th>
               </tr>
             </thead>
             <tbody className="text-sm text-gray-800">
-              {paginatedSuppliers.map((supplier) => (
-                <tr
-                  key={supplier.id_supplier}
-                  className="border-b hover:bg-gray-50"
-                >
+              {users.map((user) => (
+                <tr key={user.id_user} className="border">
+                  <td className="px-4 border-r py-2">{user.name.toUpperCase()}</td>
+                  <td className="px-4 border-r py-2">{formatCPF(user.cpf)}</td>
+                  <td className="px-4 border-r py-2">{user.email}</td>
                   <td className="px-4 border-r py-2">
-                    {supplier.fantasy_name.toUpperCase()}
-                  </td>
-                  <td className="px-4 border-r py-2">
-                    {formatCNPJ(supplier.cnpj)}
-                  </td>
-                  <td className="px-4 border-r py-2">
-                    <a
-                      href={`mailto:${supplier.email}`}
-                      className="hover:text-[#0000FF] hover:underline"
-                    >
-                      {supplier.email == "" ? "--------------" : supplier.email}
-                    </a>
+                    {formatDate(user.date_now)}
                   </td>
                   <td className="px-4 border-r py-2 flex justify-center">
-                   
-          {supplier.status == "ATIVO" ? (
+                    {user.status == "ATIVO" ? (
                       <img src="/svg/active.svg" alt="" />
                     ) : (
                       <img src="/svg/inactive.svg" alt="" />
-                    )}         </td>
+                    )}
+                  </td>
                   <td className="px-4 border-r py-2">
                     <div className="flex gap-4 justify-center w-[100%]">
-                      <button onClick={() => {handleUpdate(); setSelectSupplier(supplier)}}>
+                      <button onClick={() => {handleUpdate(); setSelectUser(user)}}  >
                         <img
                           src="/svg/ditar.svg"
                           alt=""
@@ -210,8 +198,8 @@ export default function Fornecedores() {
             </button>
           </div>
           {showUpdate && (
-            <UpdateSupplier onClose={() => setShowUpdate(false)} selectSupplier={selectSupplier} />
-          )}
+                      <UpdateUser onClose={() => setShowUpdate(false)} selectUser={selectUser} />
+                    )}
         </div>
       </div>
     </div>

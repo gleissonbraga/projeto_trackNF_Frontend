@@ -27,7 +27,7 @@ export default function NavBar(){
 
       <nav className="flex flex-col gap-4 mt-4 px-2 w-full">
         <Link to="/home">
-            <SidebarItem icon={<img src='/svg/ion_home.svg' className="w-5 h-5 transition-all duration-500"></img>} label="Home" isHovered={isHovered} className={"flex items-center gap-3 p-2 pl-4 rounded hover:bg-gradient-to-r hover:from-[#101024] hover:via-[#4a5461] hover:to-blue-300 cursor-pointer transition-all"} />
+            <SidebarItem icon={<img src='/svg/ion_home.svg' className="w-5 h-5 transition-all duration-500"></img>} label="Início" isHovered={isHovered} className={"flex items-center gap-3 p-2 pl-4 rounded hover:bg-gradient-to-r hover:from-[#101024] hover:via-[#4a5461] hover:to-blue-300 cursor-pointer transition-all"} />
         </Link>
 
         <Link to='/notasfiscais'>

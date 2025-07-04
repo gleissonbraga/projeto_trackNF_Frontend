@@ -7,6 +7,8 @@ import Fornecedores from './fornecedores/Fornecedores';
 import "@fontsource/inter"
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/700.css";
+import Users from './users/Users';
+import Notasfiscais from './nfs/NotasFiscais';
 
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
               </Route>
               <Route path='/notasfiscais' element={
                 <VerifyLogin>
-                    <Fornecedores/>
+                    <Notasfiscais/>
                 </VerifyLogin>}>
               </Route>
               <Route path='/boletos' element={
@@ -34,7 +36,7 @@ function App() {
               </Route>
               <Route path='/usuarios' element={
                 <VerifyLogin>
-                    <Fornecedores/>
+                    <Users/>
                 </VerifyLogin>}>
               </Route>
               <Route path='/fornecedores' element={

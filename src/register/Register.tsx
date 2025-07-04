@@ -1,5 +1,9 @@
 import { useState } from "react";
 import apiClient from "../api/apiClient";
+import { formatCPFInput } from "../utils/formatCpfInput";
+import { cleanCPF } from "../utils/cleanCpf";
+import { cleanCNPJ } from "../utils/cleanCnpj";
+import { formatCNPJInput } from "../utils/formatCnpjInput";
 
 interface RegisterProps {
     onClose: () => void
@@ -10,14 +14,15 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
 
 
     const [name, setName] = useState('')
-    const [cpf, setCpf] = useState('')
+    const [cpfInput, setCpf] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [fantasy_name, setFatasyName] = useState('')
     const [reason_name, setReasonName] = useState('')
-    const [cnpj, setCnpj] = useState('')
+    const [cnpjInput, setCnpj] = useState('')
     const [state_registration, setStateRegistration] = useState('')
+    const [formSubmitted, setFormSubmitted] = useState(false);
     const [erro, setErro] = useState({
         cpf: "",
         email: "",
@@ -37,7 +42,14 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
         cnpj: "",
         state_registration: "",
     })
-        
+
+        setFormSubmitted(true);
+    if (password !== confirmPassword) {
+      return;
+    }
+    
+    const cpf = cleanCPF(cpfInput)
+    const cnpj = cleanCNPJ(cnpjInput)
         try {
             const response = await apiClient.post('/api/usuarios', { name, cpf , email, password, fantasy_name , reason_name, cnpj, state_registration })
             setMensagemSucesso("Cadastrado com sucesso! Realize o login.");
@@ -88,8 +100,8 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
                                 <div className="flex gap-2 w-full">
                                     <input type="text" name="name" id="name" placeholder="Nome"
                                     value={name} autoFocus onChange={(e) => setName(e.target.value)} className="border p-2 rounded w-[50%] border-gray-400"/>
-                                    <input type="text" maxLength={11} name="cpf" id="cpf" placeholder="CPF"
-                                    value={cpf} onChange={(e) => setCpf(e.target.value)}
+                                    <input type="text" maxLength={14} name="cpf" id="cpf" placeholder="CPF"
+                                    value={formatCPFInput(cpfInput)} onChange={(e) => setCpf(e.target.value)}
                                     className={`border p-2 rounded w-[50%] border-gray-400
                                     ${erro.cpf ? " border-red-500 bg-red-100 border-2 " : ""}`}/>
                                 </div>
@@ -101,9 +113,13 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
                                     {erro.email && <span className="text-red-500 text-xs text-center">{erro.email}</span>}
                                     <input type="password" name="password" id="password" placeholder="Senha"
                                     value={password} onChange={(e) => setPassword(e.target.value)} className="border p-2 rounded border-gray-400" />
-                                    <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirme a senha" className={`border p-2 rounded border-gray-400 ${password !== confirmPassword && confirmPassword ? "border-red-500 bg-red-100" : ""}`} />
-                                    {password !== confirmPassword && confirmPassword && (<span className="text-red-500 text-xs text-center"> As senhas devem ser iguais </span>)}
+                                    <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirme a senha" className={`border p-2 rounded border-gray-400`} />
                                 </div>
+                                {formSubmitted && password !== confirmPassword && (
+              <span className="text-red-500 text-xs text-center block">
+                Senhas incorretas
+              </span>
+            )}
                             </div>
                             <div className="flex flex-col gap-2 w-[50%]">
                                 <h3 className="text-center text-2xl mb-4 text-blue-600">Insira os dados da Empresa</h3>
@@ -115,8 +131,8 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
                                 {erro.reason_name && <span className="text-red-500 text-xs text-center">{erro.reason_name}</span>}
                                 <div className="flex gap-2">
                                     <input type="text" name="cnpj" id="cnpj" placeholder="CNPJ"
-                                    maxLength={14}
-                                    value={cnpj} onChange={(e) => setCnpj(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
+                                    maxLength={18}
+                                    value={formatCNPJInput(cnpjInput)} onChange={(e) => setCnpj(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
                                 ${erro.cnpj ? " border-red-500 bg-red-100 border-2 " : ""}`} />
                                     <input type="text" name="state_registration" id="state_registration" placeholder="Inscrição estadual" 
                                     value={state_registration} onChange={(e) => setStateRegistration(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
