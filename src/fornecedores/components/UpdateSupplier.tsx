@@ -116,7 +116,7 @@ export default function UpdateSupplier({
             x
           </button>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center w-[90%] mt-6">
           <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2">
             Atualizar Fornecedor
           </h2>
@@ -134,7 +134,7 @@ export default function UpdateSupplier({
             <input
               type="text"
               placeholder="Nome Fantasia"
-              className="border p-2 rounded w-[98%] border-gray-400"
+              className=" p-2  w-[98%] border-b-2 border-gray-600"
               value={fantasy_name}
               autoFocus
               onChange={(e) => setFantasy_name(e.target.value)}
@@ -144,7 +144,7 @@ export default function UpdateSupplier({
             <input
               type="text"
               placeholder="Nome Razão"
-              className={`border p-2 rounded w-[98%] border-gray-400 
+              className={` p-2 w-[98%] border-b-2 border-gray-600
               ${
                 erro.reason_name ? " border-red-500 bg-red-100 border-2 " : ""
               }`}
@@ -162,7 +162,7 @@ export default function UpdateSupplier({
               <input
                 type="text"
                 placeholder="CNPJ"
-                className={`border p-2 rounded w-[56%] border-gray-400 
+                className={` p-2  w-[56%] border-b-2 border-gray-600
                 ${erro.cnpj ? " border-red-500 bg-red-100 border-2 " : ""}`}
                 maxLength={18}
                 value={cnpjInput}
@@ -171,7 +171,7 @@ export default function UpdateSupplier({
               <input
                 type="text"
                 placeholder="Inscriçao Estadual"
-                className={`border p-2 rounded w-[40%] border-gray-400 
+                className={` p-2  w-[40%] border-b-2 border-gray-600
                   ${
                     erro.state_registration
                       ? " border-red-500 bg-red-100 border-2 "
@@ -195,14 +195,14 @@ export default function UpdateSupplier({
               <input
                 type="text"
                 placeholder="Email"
-                className="border p-2 rounded w-[56%] border-gray-400"
+                className=" p-2  w-[56%] border-b-2 border-gray-600"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Telefone"
-                className="border p-2 rounded w-[40%] border-gray-400"
+                className=" p-2 w-[40%] border-b-2 border-gray-600"
                 value={phone_number}
                 onChange={(e) => setPhone_number(e.target.value)}
               />
@@ -230,7 +230,7 @@ export default function UpdateSupplier({
               </label>
             </div>
             <button type="submit" className="mt-4 bn39">
-              <span className="bn39span">Cadastrar</span>
+              <span className="bn39span">Salvar</span>
             </button>
           </form>
         </div>

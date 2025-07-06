@@ -13,6 +13,7 @@ export default function Users() {
   const [users, setUsers] = useState<TypeUsers[]>([]);
   const [usersActive, setUsersActive] = useState<TypeUsers[]>([]);
   const [usersInactive, setUsersInactive] = useState<TypeUsers[]>([]);
+  const [mensagemSucesso, setMensagemSucesso] = useState('');
   const [selectUser, setSelectUser] = useState<TypeUsers | null>(null);
   const itemsPerPage = 9;
   const totalPages = Math.ceil(users.length / itemsPerPage);
@@ -54,8 +55,23 @@ export default function Users() {
     fetchSuppliers();
   }, []);
 
+
+      useEffect(() => {
+        if (mensagemSucesso) {
+            const timer = setTimeout(() => {
+            setMensagemSucesso('');
+            }, 8000);
+        return () => clearTimeout(timer);
+    }
+    }, [mensagemSucesso]);
+
   return (
     <div className="w-full h-screen pl-20 flex justify-center items-center bg-[#f3f2f2]">
+                        {mensagemSucesso && (
+                <div className="fixed top-6 right-6 h-20 bg-green-100 border font-semibold border-green-400 text-green-700 px-4 py-2 rounded shadow-md text-base z-50 flex items-center">
+                    {mensagemSucesso}
+                </div>
+            )} 
       <div className="w-[90%] min-h-[620px] rounded-xl shadow-xl flex items-center p-2 bg-white flex-col">
         <div className="bg-blue-400 h-16 w-[60%] rounded-lg relative top-[-40px] text-white flex items-center pl-4 justify-center shadow-2xl">
           <h2 className="relative font-bold uppercase text-4xl break-all">
@@ -81,7 +97,7 @@ export default function Users() {
             />
           </button>
           {showRegister && (
-            <RegisterUser onClose={() => setShowRegister(false)} />
+            <RegisterUser onClose={() => setShowRegister(false)} setMensagemSucesso={setMensagemSucesso}/>
           )}
 
           <span
@@ -137,7 +153,7 @@ export default function Users() {
             </thead>
             <tbody className="text-sm text-gray-800">
               {users.map((user) => (
-                <tr key={user.id_user} className="border">
+                <tr key={user.id_user} className="border hover:bg-gray-300">
                   <td className="px-4 border-r py-2">{user.name.toUpperCase()}</td>
                   <td className="px-4 border-r py-2">{formatCPF(user.cpf)}</td>
                   <td className="px-4 border-r py-2">{user.email}</td>
@@ -160,14 +176,6 @@ export default function Users() {
                           className="hover:scale-110 transition-transform delay-100"
                         />
                       </button>
-
-                      <button>
-                        <img
-                          src="/svg/excluir.svg"
-                          alt=""
-                          className="hover:scale-110 transition-transform delay-100"
-                        />
-                      </button>
                     </div>
                   </td>
                 </tr>
@@ -180,11 +188,11 @@ export default function Users() {
               disabled={currentPage === 1}
               className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
             >
-              Anterior
+              &lt;
             </button>
 
             <span className="text-gray-700 font-semibold">
-              Página {currentPage} de {totalPages}
+              {currentPage}/{totalPages}
             </span>
 
             <button
@@ -194,7 +202,7 @@ export default function Users() {
               disabled={currentPage === totalPages}
               className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
             >
-              Próxima
+              &gt;
             </button>
           </div>
           {showUpdate && (

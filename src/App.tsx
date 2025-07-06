@@ -9,6 +9,8 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/700.css";
 import Users from './users/Users';
 import Notasfiscais from './nfs/NotasFiscais';
+import MyProfile from './profile/MyProfile';
+import Slips from './slips/Slips';
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
               </Route>
               <Route path='/boletos' element={
                 <VerifyLogin>
-                    <Fornecedores/>
+                    <Slips/>
                 </VerifyLogin>}>
               </Route>
               <Route path='/usuarios' element={
@@ -46,7 +48,7 @@ function App() {
               </Route>
               <Route path='/conta' element={
                 <VerifyLogin>
-                    <Fornecedores/>
+                    <MyProfile/>
                 </VerifyLogin>}>
               </Route>
 

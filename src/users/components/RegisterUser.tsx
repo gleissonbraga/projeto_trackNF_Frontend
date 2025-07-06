@@ -6,9 +6,10 @@ import { cleanCPF } from "../../utils/cleanCpf";
 
 interface RegisterProps {
   onClose: () => void;
+  setMensagemSucesso: (mensagem: string) => void
 }
 
-export default function RegisterUser({ onClose }: RegisterProps) {
+export default function RegisterUser({ onClose, setMensagemSucesso }: RegisterProps) {
   const [name, setName] = useState("");
   const [cpfinput, setCpf] = useState("");
   const [email, setEmail] = useState("");
@@ -45,6 +46,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
         email,
         password,
       });
+      setMensagemSucesso("Usuário Cadastrado");
       onClose();
     } catch (error: any) {
       if (error.response && error.response.data) {
@@ -92,7 +94,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
             <input
               type="text"
               placeholder="Nome"
-              className="border p-2 rounded w-[98%] border-gray-400"
+              className=" w-[98%]  border-b-2 p-2 border-gray-600 h-10"
               value={name}
               autoFocus
               onChange={(e) => setName(e.target.value)}
@@ -102,7 +104,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
             <input
               type="text"
               placeholder="E-mail"
-              className={`border p-2 rounded w-[98%] border-gray-400
+              className={`w-[98%] border-b-2 p-2 border-gray-600 h-10
                  ${erro.email ? " border-red-500 bg-red-100 border-2 " : ""} `}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -118,7 +120,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
               <input
                 type="text"
                 placeholder="CPF"
-                className={`border p-2 rounded w-[56%] border-gray-400
+                className={` w-[56%] border-b-2 p-2 border-gray-600 h-10
                   ${erro.cpf ? " border-red-500 bg-red-100 border-2 " : ""} `}
                 maxLength={18}
                 value={formatCPFInput(cpfinput)}
@@ -135,7 +137,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Senha"
-                  className="border border-gray-400 p-2 rounded-l w-full"
+                  className="border-b-2 p-2 border-gray-600 h-10 w-full"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -143,7 +145,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
                   onMouseDown={() => setShowPassword(true)}
                   onMouseUp={() => setShowPassword(false)}
                   onMouseLeave={() => setShowPassword(false)}
-                  className="border border-gray-400 p-2 rounded-r flex items-center justify-center cursor-pointer"
+                  className="border-b-2 p-2 border-gray-600 h-10  flex items-center justify-center cursor-pointer"
                 >
                   <img
                     src={
@@ -157,7 +159,7 @@ export default function RegisterUser({ onClose }: RegisterProps) {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Confirmar Senha"
-                className="border p-2 rounded w-[48%] border-gray-400"
+                className=" w-[48%] border-b-2 p-2 border-gray-600 h-10"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />

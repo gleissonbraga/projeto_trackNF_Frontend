@@ -10,6 +10,7 @@ export type TypeNf = {
   supplier: string
   receivedBy: string
   tickets: {
+    id_ticket: string
     ticket_value: number;
     due_date: string;
     status: string;

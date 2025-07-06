@@ -64,7 +64,6 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
           reason_name,
         }
       );
-      console.log(password);
       onClose();
     } catch (error: any) {
       if (error.response && error.response.data) {
@@ -121,7 +120,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
             <input
               type="text"
               placeholder="Nome"
-              className="border p-2 rounded w-[98%] border-gray-400"
+              className=" w-[98%] border-b-2 p-2 border-gray-600 h-10"
               value={name}
               autoFocus
               onChange={(e) => setName(e.target.value)}
@@ -131,7 +130,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
             <input
               type="text"
               placeholder="E-mail"
-              className={`border p-2 rounded w-[98%] border-gray-400
+              className={`w-[98%] border-b-2 p-2 border-gray-600 h-10
                 ${erro.email ? " border-red-500 bg-red-100 border-2 " : ""} `}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -147,7 +146,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
               <input
                 type="text"
                 placeholder="CPF"
-                className={`border p-2 rounded w-[56%] border-gray-400 
+                className={`w-[56%] border-b-2 p-2 border-gray-600 h-10
                 ${erro.cpf ? " border-red-500 bg-red-100 border-2 " : ""}`}
                 maxLength={18}
                 value={formatCPFInput(cpfinput)}
@@ -164,7 +163,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Senha"
-                  className="border border-gray-400 p-2 rounded-l w-full"
+                  className="border-b-2 p-2 border-gray-600 h-10 w-full"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -172,7 +171,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
                   onMouseDown={() => setShowPassword(true)}
                   onMouseUp={() => setShowPassword(false)}
                   onMouseLeave={() => setShowPassword(false)}
-                  className="border border-gray-400 p-2 rounded-r flex items-center justify-center cursor-pointer"
+                  className="border-b-2 p-2 border-gray-600 h-10 flex items-center justify-center cursor-pointer"
                 >
                   <img
                     src={
@@ -186,7 +185,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Confirmar Senha"
-                className="border p-2 rounded w-[48%] border-gray-400"
+                className=" w-[48%] border-b-2 p-2 border-gray-600 h-10"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -229,7 +228,7 @@ export default function UpdateUser({ onClose, selectUser }: RegisterProps) {
               </span>
             )}
             <button type="submit" className="mt-4 bn39">
-              <span className="bn39span">Atualizar</span>
+              <span className="bn39span">Salvar</span>
             </button>
           </form>
         </div>

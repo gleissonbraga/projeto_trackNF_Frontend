@@ -4,9 +4,10 @@ import apiClient from "../../api/apiClient";
 
 interface RegisterProps {
   onClose: () => void;
+  setMensagemSucesso: (mensagem: string) => void
 }
 
-export default function RegisterSupplier({ onClose }: RegisterProps) {
+export default function RegisterSupplier({ onClose, setMensagemSucesso }: RegisterProps) {
   const [fantasy_name, setFantasy_name] = useState("");
   const [reason_name, setReason_name] = useState("");
   const [cnpjInput, setCnpj] = useState("");
@@ -54,6 +55,7 @@ export default function RegisterSupplier({ onClose }: RegisterProps) {
         phone_number,
         email,
       });
+      setMensagemSucesso("Fornecedor Cadastrado");
       onClose();
     } catch (error: any) {
       if (error.response && error.response.data) {
@@ -96,7 +98,7 @@ export default function RegisterSupplier({ onClose }: RegisterProps) {
             <input
               type="text"
               placeholder="Nome Fantasia"
-              className="border p-2 rounded w-[98%] border-gray-400"
+              className=" p-2 w-[98%]  border-b-2 border-gray-600"
               value={fantasy_name}
               autoFocus
               onChange={(e) => setFantasy_name(e.target.value)}
@@ -106,7 +108,7 @@ export default function RegisterSupplier({ onClose }: RegisterProps) {
             <input
               type="text"
               placeholder="Nome Razão"
-              className={`border p-2 rounded w-[98%] border-gray-400 
+              className={` p-2 w-[98%] border-b-2 border-gray-600 
               ${erro.reason_name ? " border-red-500 bg-red-100 border-2 " : ""}`}
               value={reason_name}
               onChange={(e) => setReason_name(e.target.value)}
@@ -118,7 +120,7 @@ export default function RegisterSupplier({ onClose }: RegisterProps) {
               <input
                 type="text"
                 placeholder="CNPJ"
-                className={`border p-2 rounded w-[56%] border-gray-400 
+                className={` p-2  w-[56%] border-b-2 border-gray-600
                 ${erro.cnpj ? " border-red-500 bg-red-100 border-2 " : ""}`}
                 maxLength={18}
                 value={cnpjInput}
@@ -127,7 +129,7 @@ export default function RegisterSupplier({ onClose }: RegisterProps) {
               <input
                 type="text"
                 placeholder="Inscriçao Estadual"
-                className={`border p-2 rounded w-[40%] border-gray-400 
+                className={` p-2  w-[40%] border-b-2 border-gray-600
                   ${erro.state_registration ? " border-red-500 bg-red-100 border-2 " : ""}`}
                   value={state_registration}
                   onChange={(e) => setState_registration(e.target.value)}
@@ -139,14 +141,14 @@ export default function RegisterSupplier({ onClose }: RegisterProps) {
               <input
                 type="text"
                 placeholder="Email"
-                className="border p-2 rounded w-[56%] border-gray-400"
+                className=" p-2  w-[56%] border-b-2 border-gray-600"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Telefone"
-                className="border p-2 rounded w-[40%] border-gray-400"
+                className=" p-2  w-[40%] border-b-2 border-gray-600"
                 value={phone_number}
                 onChange={(e) => setPhone_number(e.target.value)}
               />

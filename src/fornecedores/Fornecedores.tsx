@@ -13,6 +13,7 @@ export default function Fornecedores() {
     []
   );
   const [showRegister, setShowRegister] = useState(false);
+  const [mensagemSucesso, setMensagemSucesso] = useState('');
   const [showUpdate, setShowUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectSupplier, setSelectSupplier] = useState<TypeSupplier | null>(null);
@@ -59,8 +60,24 @@ export default function Fornecedores() {
     fetchSuppliers();
   }, []);
 
+  
+    useEffect(() => {
+        if (mensagemSucesso) {
+            const timer = setTimeout(() => {
+            setMensagemSucesso('');
+            }, 8000);
+        return () => clearTimeout(timer);
+    }
+    }, [mensagemSucesso]);
+
+
   return (
     <div className="w-full h-screen pl-20 flex justify-center items-center bg-[#f3f2f2]">
+                        {mensagemSucesso && (
+                <div className="fixed top-6 right-6 h-20 bg-green-100 border font-semibold border-green-400 text-green-700 px-4 py-2 rounded shadow-md text-base z-50 flex items-center">
+                    {mensagemSucesso}
+                </div>
+            )} 
       <div className="w-[90%] min-h-[620px] rounded-xl shadow-xl flex items-center p-2 bg-white flex-col">
         <div className="bg-gray-500 h-16 w-[60%] rounded-lg relative top-[-40px] text-white flex items-center pl-4 justify-center shadow-2xl">
           <h2 className="relative font-bold uppercase text-4xl break-all">
@@ -86,7 +103,7 @@ export default function Fornecedores() {
             />
           </button>
           {showRegister && (
-            <RegisterSupplier onClose={() => setShowRegister(false)} />
+            <RegisterSupplier onClose={() => setShowRegister(false)}  setMensagemSucesso={setMensagemSucesso} />
           )}
 
           <span
@@ -140,7 +157,7 @@ export default function Fornecedores() {
               {paginatedSuppliers.map((supplier) => (
                 <tr
                   key={supplier.id_supplier}
-                  className="border-b hover:bg-gray-50"
+                  className="border-b hover:bg-gray-200"
                 >
                   <td className="px-4 border-r py-2">
                     {supplier.fantasy_name.toUpperCase()}
@@ -172,14 +189,6 @@ export default function Fornecedores() {
                           className="hover:scale-110 transition-transform delay-100"
                         />
                       </button>
-
-                      <button>
-                        <img
-                          src="/svg/excluir.svg"
-                          alt=""
-                          className="hover:scale-110 transition-transform delay-100"
-                        />
-                      </button>
                     </div>
                   </td>
                 </tr>
@@ -192,11 +201,11 @@ export default function Fornecedores() {
               disabled={currentPage === 1}
               className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
             >
-              Anterior
+              &lt;
             </button>
 
             <span className="text-gray-700 font-semibold">
-              Página {currentPage} de {totalPages}
+              {currentPage}/{totalPages}
             </span>
 
             <button
@@ -206,7 +215,7 @@ export default function Fornecedores() {
               disabled={currentPage === totalPages}
               className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
             >
-              Próxima
+              &gt;
             </button>
           </div>
           {showUpdate && (

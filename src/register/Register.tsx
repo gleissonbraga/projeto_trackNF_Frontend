@@ -99,21 +99,21 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
                             <div className="flex flex-col gap-4 w-[50%]">
                                 <div className="flex gap-2 w-full">
                                     <input type="text" name="name" id="name" placeholder="Nome"
-                                    value={name} autoFocus onChange={(e) => setName(e.target.value)} className="border p-2 rounded w-[50%] border-gray-400"/>
+                                    value={name} autoFocus onChange={(e) => setName(e.target.value)} className="border-b-2 p-2 w-[98%] border-gray-600 h-10"/>
                                     <input type="text" maxLength={14} name="cpf" id="cpf" placeholder="CPF"
                                     value={formatCPFInput(cpfInput)} onChange={(e) => setCpf(e.target.value)}
-                                    className={`border p-2 rounded w-[50%] border-gray-400
+                                    className={`border-b-2 p-2 w-[98%] border-gray-600 h-10
                                     ${erro.cpf ? " border-red-500 bg-red-100 border-2 " : ""}`}/>
                                 </div>
                                     {erro.cpf && <span className="text-red-500 text-xs text-center">{erro.cpf}</span>}
                                 <div className="flex flex-col gap-2 ">
                                     <input type="email" name="email" id="email" placeholder="Email"
-                                    value={email} onChange={(e) => setEmail(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
+                                    value={email} onChange={(e) => setEmail(e.target.value)} className={`border-b-2 p-2 w-[98%] border-gray-600 h-10
                                     ${erro.cpf ? " border-red-500 bg-red-100 border-2 " : ""}`} />
                                     {erro.email && <span className="text-red-500 text-xs text-center">{erro.email}</span>}
                                     <input type="password" name="password" id="password" placeholder="Senha"
-                                    value={password} onChange={(e) => setPassword(e.target.value)} className="border p-2 rounded border-gray-400" />
-                                    <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirme a senha" className={`border p-2 rounded border-gray-400`} />
+                                    value={password} onChange={(e) => setPassword(e.target.value)} className="border-b-2 p-2 w-[98%] border-gray-600 h-10" />
+                                    <input type="password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirme a senha" className={`border-b-2 p-2 w-[98%] border-gray-600 h-10`} />
                                 </div>
                                 {formSubmitted && password !== confirmPassword && (
               <span className="text-red-500 text-xs text-center block">
@@ -124,18 +124,18 @@ export default function Register({ onClose, setMensagemSucesso }: RegisterProps)
                             <div className="flex flex-col gap-2 w-[50%]">
                                 <h3 className="text-center text-2xl mb-4 text-blue-600">Insira os dados da Empresa</h3>
                                 <input type="text" name="fantasy_name" id="fantasy_name" placeholder="Nome Fantasia"
-                                value={fantasy_name} onChange={(e) => setFatasyName(e.target.value)} className="border p-2 rounded border-gray-400" />
+                                value={fantasy_name} onChange={(e) => setFatasyName(e.target.value)} className="border-b-2 p-2 w-[98%] border-gray-600 h-10" />
                                 <input type="text" name="reason_name" id="reason_name" placeholder="Nome Razão"
-                                value={reason_name} onChange={(e) => setReasonName(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
+                                value={reason_name} onChange={(e) => setReasonName(e.target.value)} className={`border-b-2 p-2 w-[98%] border-gray-600 h-10
                                 ${erro.reason_name ? " border-red-500 bg-red-100 border-2 " : ""}`} />
                                 {erro.reason_name && <span className="text-red-500 text-xs text-center">{erro.reason_name}</span>}
                                 <div className="flex gap-2">
                                     <input type="text" name="cnpj" id="cnpj" placeholder="CNPJ"
                                     maxLength={18}
-                                    value={formatCNPJInput(cnpjInput)} onChange={(e) => setCnpj(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
+                                    value={formatCNPJInput(cnpjInput)} onChange={(e) => setCnpj(e.target.value)} className={`border-b-2 p-2 w-[98%] border-gray-600 h-10
                                 ${erro.cnpj ? " border-red-500 bg-red-100 border-2 " : ""}`} />
                                     <input type="text" name="state_registration" id="state_registration" placeholder="Inscrição estadual" 
-                                    value={state_registration} onChange={(e) => setStateRegistration(e.target.value)} className={`border p-2 rounded w-[100%] border-gray-400
+                                    value={state_registration} onChange={(e) => setStateRegistration(e.target.value)} className={`border-b-2 p-2 w-[98%] border-gray-600 h-10
                                 ${erro.state_registration ? " border-red-500 bg-red-100 border-2 " : ""}`} />
                                     
                                 </div>
