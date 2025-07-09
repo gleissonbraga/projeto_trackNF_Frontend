@@ -1,4 +1,4 @@
-import "../css/overflow.css";
+import "../../css/overflow.css";
 import { format } from "date-fns";
 import type { TypeTicket } from "../types/Ticket";
 

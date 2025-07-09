@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../css/button.css";
 import apiClient from "../../api/apiClient";
-import { formatCPFInput } from "../../utils/formatCpfInput";
-import { cleanCPF } from "../../utils/cleanCpf";
+import { formatCPFInput } from "../../utils/format/formatCpfInput";
+import { cleanCPF } from "../../utils/clean/cleanCpf";
 
 interface RegisterProps {
   onClose: () => void;
@@ -132,7 +132,7 @@ export default function RegisterUser({ onClose, setMensagemSucesso }: RegisterPr
                 {erro.cpf}
               </span>
             )}
-            <div className="flex gap-2 items-center justify-center w-[98%]">
+            <div className="flex gap-2 items-center justify-center w-[98%] flex-wrap sm:flex-row">
               <div className="w-[50%] flex">
                 <input
                   type={showPassword ? "text" : "password"}

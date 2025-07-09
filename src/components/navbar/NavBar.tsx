@@ -15,7 +15,7 @@ export default function NavBar(){
   return (
     <div
     // 101024 // 1C2325
-      className={`h-screen bg-[#101024] text-white transition-all duration-500 justify-around
+      className={`hidden sm:block  h-screen bg-[#101024] text-white transition-all duration-500 justify-around
         ${isHovered ? "w-48" : "w-20"} fixed left-0 top-0 flex flex-col items-center`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

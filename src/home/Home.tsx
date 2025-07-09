@@ -51,11 +51,11 @@ export default function Home() {
 
 
   return (
-    <div className="w-full flex justify-center items-center flex-col">
-      <div className="pl-20 w-full h-screen flex justify-center items-center flex-col bg-[#f3f2f2]">
+    <div className="w-full min-h-[740px] flex justify-center items-center flex-col">
+      <div className="sm:pl-20 w-full flex justify-center items-center flex-col bg-[#f3f2f2]">
         <div className="w-[98%] rounded-xl shadow-xl flex justify-center p-2 flex-wrap bg-white">
-          <div className="flex gap-10 w-[90%] p-8 flex-wrap items-center justify-center">
-            <div className="w-72 h-40 bg-[#ef4444] rounded-lg shadow-sm flex flex-col p-4 gap-4 justify-center text-[#FDF8E7]">
+          <div className="flex gap-10 w-[90%] p-8 items-center justify-center flex-wrap">
+            <div className="w-72 min-h-40 bg-[#ef4444] rounded-lg shadow-sm flex flex-col p-4 gap-4 justify-center text-[#FDF8E7]">
               <p className="uppercase text-[14px] font-medium">
                 Boletos Pendentes
               </p>
@@ -64,12 +64,12 @@ export default function Home() {
               </p>
               <p className="text-[14px]">Vencimento próximo</p>
             </div>
-            <div className="w-72 h-40 bg-[#eab308] rounded-lg shadow-sm flex flex-col p-4 gap-4 justify-center text-[#FDF8E7]">
+            <div className="w-72 min-h-40 bg-[#eab308] rounded-lg shadow-sm flex flex-col p-4 gap-4 justify-center text-[#FDF8E7]">
               <p className="uppercase text-[14px] font-medium">Notas Retidas</p>
               <p className="uppercase text-[30px] font-bold">{nfsRetained.length}</p>
               <p className="text-[14px]">Totas de NFs retidas</p>
             </div>
-            <div className="w-72 h-40 bg-[#3B82F6] rounded-lg shadow-sm flex flex-col p-4 gap-4 justify-center text-[#FDF8E7]">
+            <div className="w-72 min-h-40 bg-[#3B82F6] rounded-lg shadow-sm flex flex-col p-4 gap-4 justify-center text-[#FDF8E7]">
               <p className="uppercase text-[14px] font-medium">
                 Notas Fiscais Recebidas Hoje
               </p>
@@ -174,8 +174,6 @@ export default function Home() {
               </table>
             </div>
           </div>
-        </div>
-      </div>
       {showDetails && selectTicket && (
         <DetailsTickets
           onClose={() => {
@@ -195,6 +193,8 @@ export default function Home() {
           nf={selectedNf}
         />
       )}
+        </div>
+      </div>
     </div>
   );
 }

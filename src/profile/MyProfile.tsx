@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { cleanCPF } from "../utils/cleanCpf";
+import { cleanCPF } from "../utils/clean/cleanCpf";
 import apiClient from "../api/apiClient";
-import { formatCPFInput } from "../utils/formatCpfInput";
+import { formatCPFInput } from "../utils/format/formatCpfInput";
 import type { TypeUser } from "./types/User";
 
 export default function MyProfile() {
@@ -112,7 +112,7 @@ export default function MyProfile() {
   }, [user]);
 
   return (
-    <div className="w-full h-screen pl-20 flex justify-center items-center bg-gray-300">
+    <div className="w-full min-h-[740px] pt-10 sm:pl-20 flex justify-center items-center bg-gray-300">
       {messageSuccess && (
         <div className="fixed top-6 right-6 h-20 bg-green-100 border font-semibold border-green-400 text-green-700 px-4 py-2 rounded shadow-md text-base z-50 flex items-center">
           {messageSuccess}
@@ -120,7 +120,7 @@ export default function MyProfile() {
       )}
       <div className="w-[90%] min-h-[620px] rounded-xl shadow-xl flex items-center p-2 bg-white flex-col">
         <div className="bg-teal-800 h-16 w-[60%] rounded-lg relative top-[-40px] text-white flex items-center pl-4 justify-center shadow-2xl">
-          <h2 className="relative font-bold uppercase text-4xl break-all">
+          <h2 className="relative font-bold uppercase text-lg sm:text-4xl break-all">
             Meus Dados
           </h2>
         </div>
@@ -163,7 +163,7 @@ export default function MyProfile() {
                 <input
                   type="text"
                   placeholder="CPF"
-                  className={`w-[56%] border-b-2 p-2 border-gray-600 h-10
+                  className={` w-[100%] sm:w-[56%] border-b-2 p-2 border-gray-600 h-10
                                 ${
                                   erro.cpf
                                     ? " border-red-500 bg-red-100 border-2 "
@@ -179,8 +179,8 @@ export default function MyProfile() {
                   {erro.cpf}
                 </span>
               )}
-              <div className="flex gap-2 items-center justify-center w-[98%]">
-                <div className="w-[50%] flex">
+              <div className="flex gap-2 items-center justify-center w-[98%] flex-wrap sm:flex-row">
+                <div className="w-[100%] sm:w-[50%] flex">
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Senha"
@@ -206,15 +206,20 @@ export default function MyProfile() {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirmar Senha"
-                  className=" w-[48%] border-b-2 p-2 border-gray-600 h-10"
+                  className=" w-[100%] sm:w-[48%] border-b-2 p-2 border-gray-600 h-10"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
+                            {formSubmitted && password !== confirmPassword && (
+                <span className="text-red-500 text-xs text-center block">
+                  Senhas incorretas
+                </span>
+              )}
               {/*  */}
-                <div className="bg-blue-900 w-[38%] rounded-lg p-2"><h3 className="text-2xl text-center font-semibold uppercase text-white">Dados da Empresa</h3></div>
-            <div className="flex gap-2 items-center justify-center w-[98%]">
-                <div className="w-[50%] flex">
+                <div className="bg-blue-900 w-[70%] sm:w-[38%] rounded-lg p-2"><h3 className=" text-base sm:text-2xl text-center font-semibold uppercase text-white">Dados da Empresa</h3></div>
+            <div className="flex gap-2 items-center justify-center w-[98%] flex-wrap sm:flex-row">
+                <div className="w-[100%] sm:w-[50%] flex">
                   <input
                     disabled
                     value={`${user?.company.fantasy_name.toLocaleUpperCase()}`}
@@ -223,12 +228,12 @@ export default function MyProfile() {
                 </div>
                 <input
                 disabled
-                  className=" w-[48%] border-b-2 p-2 border-gray-600 h-10 bg-white"
+                  className=" w-[100%] sm:w-[48%] border-b-2 p-2 border-gray-600 h-10 bg-white"
                   value={`${user?.company.reason_name.toLocaleUpperCase()}`}
                 />
               </div>
-            <div className="flex gap-2 items-center justify-center w-[98%]">
-                <div className="w-[50%] flex">
+            <div className="flex gap-2 items-center justify-center w-[98%] flex-wrap sm:flex-row">
+                <div className="w-[100%] sm:w-[50%] flex">
                   <input
                   disabled
                     value={`${user?.company.cnpj}`}
@@ -238,7 +243,7 @@ export default function MyProfile() {
                 <input
                 disabled
                   value={`${user?.company.state_registration}`}
-                  className=" w-[48%] border-b-2 p-2 border-gray-600 h-10 bg-white"
+                  className=" w-[100%] sm:w-[48%] border-b-2 p-2 border-gray-600 h-10 bg-white"
                 />
               </div>
               <div className="flex items-center justify-start w-full mt-2 px-2">
@@ -273,11 +278,6 @@ export default function MyProfile() {
                   </div>
                 </label>
               </div>
-              {formSubmitted && password !== confirmPassword && (
-                <span className="text-red-500 text-xs text-center block">
-                  Senhas incorretas
-                </span>
-              )}
               <button type="submit" className="mt-4 bn39">
                 <span className="bn39span">Salvar</span>
               </button>

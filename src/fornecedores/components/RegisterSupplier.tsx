@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../../css/button.css";
 import apiClient from "../../api/apiClient";
+import cleanPhone from "../../utils/clean/cleanPhone";
+import formatPhone from "../../utils/format/formatPhone";
 
 interface RegisterProps {
   onClose: () => void;
@@ -45,14 +47,14 @@ export default function RegisterSupplier({ onClose, setMensagemSucesso }: Regist
     });
 
     const cnpj = cleanCNPJ(cnpjInput);
-
+    const phone = cleanPhone(phone_number)
     try {
       const response = await apiClient.post("/api/fornecedores", {
         fantasy_name,
         reason_name,
         cnpj,
         state_registration,
-        phone_number,
+        phone_number: phone,
         email,
       });
       setMensagemSucesso("Fornecedor Cadastrado");
@@ -85,7 +87,7 @@ export default function RegisterSupplier({ onClose, setMensagemSucesso }: Regist
           </button>
         </div>
         <div className="flex items-center justify-center">
-          <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2">
+          <h2 className="w-[90%] text-center font-semibold text-xl sm:text-4xl text-blue-800 p-2">
             Cadastrar Fornecedor
           </h2>
         </div>
@@ -120,7 +122,7 @@ export default function RegisterSupplier({ onClose, setMensagemSucesso }: Regist
               <input
                 type="text"
                 placeholder="CNPJ"
-                className={` p-2  w-[56%] border-b-2 border-gray-600
+                className={` p-2  w-[100%] sm:w-[56%] border-b-2 border-gray-600
                 ${erro.cnpj ? " border-red-500 bg-red-100 border-2 " : ""}`}
                 maxLength={18}
                 value={cnpjInput}
@@ -129,7 +131,7 @@ export default function RegisterSupplier({ onClose, setMensagemSucesso }: Regist
               <input
                 type="text"
                 placeholder="Inscriçao Estadual"
-                className={` p-2  w-[40%] border-b-2 border-gray-600
+                className={` p-2  w-[100%] sm:w-[40%] border-b-2 border-gray-600
                   ${erro.state_registration ? " border-red-500 bg-red-100 border-2 " : ""}`}
                   value={state_registration}
                   onChange={(e) => setState_registration(e.target.value)}
@@ -141,16 +143,17 @@ export default function RegisterSupplier({ onClose, setMensagemSucesso }: Regist
               <input
                 type="text"
                 placeholder="Email"
-                className=" p-2  w-[56%] border-b-2 border-gray-600"
+                className=" p-2  w-[100%] sm:w-[56%] border-b-2 border-gray-600"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="text"
+                maxLength={15}
                 placeholder="Telefone"
-                className=" p-2  w-[40%] border-b-2 border-gray-600"
+                className=" p-2  w-[100%] sm:w-[40%] border-b-2 border-gray-600"
                 value={phone_number}
-                onChange={(e) => setPhone_number(e.target.value)}
+                onChange={(e) => setPhone_number(formatPhone(e.target.value))}
               />
             </div>
 

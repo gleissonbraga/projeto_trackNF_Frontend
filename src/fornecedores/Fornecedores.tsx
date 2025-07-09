@@ -72,7 +72,7 @@ export default function Fornecedores() {
 
 
   return (
-    <div className="w-full h-screen pl-20 flex justify-center items-center bg-[#f3f2f2]">
+    <div className="w-full sm:pl-20 min-h-[850px] pt-6 flex justify-center items-center bg-[#f3f2f2]">
                         {mensagemSucesso && (
                 <div className="fixed top-6 right-6 h-20 bg-green-100 border font-semibold border-green-400 text-green-700 px-4 py-2 rounded shadow-md text-base z-50 flex items-center">
                     {mensagemSucesso}
@@ -80,7 +80,7 @@ export default function Fornecedores() {
             )} 
       <div className="w-[90%] min-h-[620px] rounded-xl shadow-xl flex items-center p-2 bg-white flex-col">
         <div className="bg-gray-500 h-16 w-[60%] rounded-lg relative top-[-40px] text-white flex items-center pl-4 justify-center shadow-2xl">
-          <h2 className="relative font-bold uppercase text-4xl break-all">
+          <h2 className="relative font-bold uppercase text-lg sm:text-4xl break-all">
             Fornecedores
           </h2>
         </div>
@@ -142,7 +142,7 @@ export default function Fornecedores() {
             />
           </span>
         </div>
-        <div className="w-[98%] min-h-[29rem] mt-6 flex flex-col justify-between">
+        <div className="w-[98%] min-h-[29rem] mt-6 flex flex-col justify-between overflow-x-auto">
           <table className="min-w-full table-auto border-collapse  border-l w-full">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-sm ">
@@ -199,7 +199,7 @@ export default function Fornecedores() {
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+              className="px-4 py-1 bg-[#101024] text-white rounded disabled:opacity-50"
             >
               &lt;
             </button>
@@ -213,7 +213,7 @@ export default function Fornecedores() {
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+              className="px-4 py-1 bg-[#101024] text-white rounded disabled:opacity-50"
             >
               &gt;
             </button>

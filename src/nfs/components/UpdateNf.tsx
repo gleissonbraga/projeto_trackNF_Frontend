@@ -4,6 +4,7 @@ import type { TypeTickets } from "../types/TypeTickets";
 import type { TypeUsers } from "../../users/Types/TypeUsers";
 import type { TypeSupplier } from "../../fornecedores/types/Suppliers";
 import type { TypeNf } from "../types/TypeNf";
+import "../../css/overflow.css";
 
 interface RegisterProps {
   onClose: () => void;
@@ -137,7 +138,7 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
 
   return (
     <div className="fixed inset-0 bg-black backdrop-blur-[1.6px] bg-opacity-50 flex items-center justify-center z-50">
-      <div className="w-[70%] h-[680px] relative bg-white rounded-lg flex flex-col items-center  overflow-x-auto">
+      <div className="w-[70%] h-[680px] relative bg-white rounded-lg flex flex-col items-center custom-scroll  overflow-x-auto">
         <div className="absolut w-full bg-black flex justify-end rounded-t-lg">
           <button
             className="relative bg-black text-center text-white hover:bg-red-600 text-xl font-bold w-[50px] h-[30px] rounded-tr-lg justify-center flex"
@@ -147,18 +148,20 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
           </button>
         </div>
         <div className="flex items-center justify-center w-[90%] mt-6">
-          <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2 h-20">
+          <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2 md:h-20">
             Atualizar Nota Fiscal
           </h2>
         </div>
 
-        <div className=" w-[90%] flex justify-center items-center mt-6">
+        <div className=" w-[90%] flex justify-center items-center mt-6 ">
           <form
             onSubmit={handleSubmitRegister}
-            className="flex gap-2 flex-col items-center w-[90%]"
+            className="flex gap-6 sm:gap-2 flex-col items-center w-[90%] flex-wrap"
           >
-            <div className="flex gap-2 w-[88%] mb-6">
-              <div className="flex flex-col  w-[30%]">
+            <div className="flex gap-2 w-[88%] mb-6
+            flex-wrap justify-center md:justify-start">
+              <div className="flex flex-col  w-[80%]
+              sm:w-[30%]">
                 <span className="font-semibold">N° Nota Fiscal</span>
                 <input
                   type="text"
@@ -167,7 +170,8 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
                   onChange={(e) => setId_nf(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col w-[80%]">
+              <div className="flex flex-col w-[80%]
+              flex-wrap justify-center md:justify-start">
                 <span className="font-semibold">Fornecedor</span>
                 <select
                   id="frutas"
@@ -182,7 +186,8 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
                 </select>
               </div>
             </div>
-            <div className="flex gap-2 w-[88%] mb-6">
+            <div className="flex gap-2 w-[88%] mb-6
+            flex-wrap justify-center md:justify-start">
               <div className="flex flex-col w-[80%]">
                 <span className="font-semibold">Operação da NF</span>
                 <select
@@ -198,7 +203,8 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
                   <option value="TROCA" className="text-sm">TROCA</option>
                 </select>
               </div>
-              <div className="flex flex-col w-[80%]">
+              <div className="flex flex-col w-[80%]
+              flex-wrap justify-center md:justify-start">
                 <span className="font-semibold">Status</span>
                 <select
                   id="frutas"
@@ -214,8 +220,9 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
                 </select>
               </div>
             </div>
-            <div className="flex gap-2 w-[88%] mb-6">
-              <div className="flex flex-col  w-[30%]">
+            <div className="flex gap-2 w-[88%] mb-6
+            flex-wrap justify-center md:justify-start">
+              <div className="flex flex-col   w-[80%]  sm:w-[30%]">
                 <label htmlFor="">Valor NF</label>
                 <input
                   type="text"
@@ -224,7 +231,8 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
                   onChange={(e) => setNf_value(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col w-[80%]">
+              <div className="flex flex-col w-[80%]
+              flex-wrap justify-center md:justify-start">
                 <span className="font-semibold">Recebido por</span>
 
                 <select
@@ -241,7 +249,7 @@ export default function UpdateNf({ onClose, nf }: RegisterProps) {
               </div>
             </div>
             {tickets.map((ticket, index) => (
-              <div key={ticket.id_ticket} className="flex border-2 p-2 rounded-xl justify-around w-[80%]">
+              <div key={ticket.id_ticket} className="flex border-2 p-2 rounded-xl flex-col md:justify-start md:flex-row justify-around w-[80%]">
                 <input
                   type="number"
                   value={ticket.ticket_value}

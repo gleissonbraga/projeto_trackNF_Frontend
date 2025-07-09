@@ -120,7 +120,7 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
           </button>
         </div>
         <div className="flex items-center justify-center w-[90%] mt-6">
-          <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2 h-20">
+          <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2 md:h-20">
             Inserir Nota Fiscal
           </h2>
         </div>
@@ -128,10 +128,10 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
         <div className=" w-[90%] flex justify-center items-center mt-6">
           <form
             onSubmit={handleSubmitRegister}
-            className="flex gap-2 flex-col items-center w-[90%]"
+            className="flex gap-6 sm:gap-2 flex-col items-center w-[90%] flex-wrap"
           >
-            <div className="flex gap-2 w-[88%] mb-6">
-              <div className="flex flex-col  w-[30%]">
+            <div className="flex gap-2 w-[88%] mb-6 flex-wrap justify-center md:justify-start">
+              <div className="flex flex-col w-[80%]  sm:w-[30%]">
                 <span className="font-semibold">N° Nota Fiscal</span>
                 <input
                   type="text"
@@ -140,7 +140,7 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
                   onChange={(e) => setId_nf(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col w-[80%]">
+              <div className="flex flex-col w-[80%] flex-wrap justify-center md:justify-start">
                 <span className="font-semibold">Fornecedor</span>
                 <select
                   id="frutas"
@@ -155,7 +155,7 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
                 </select>
               </div>
             </div>
-            <div className="flex gap-2 w-[88%] mb-6">
+            <div className="flex gap-2 w-[88%] mb-6 flex-wrap justify-center md:justify-start">
               <div className="flex flex-col w-[80%]">
                 <span className="font-semibold">Operação da NF</span>
                 <select
@@ -171,7 +171,7 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
                   <option value="TROCA" className="text-sm">TROCA</option>
                 </select>
               </div>
-              <div className="flex flex-col w-[80%]">
+              <div className="flex flex-col w-[80%] flex-wrap justify-center md:justify-start">
                 <span className="font-semibold">Status</span>
                 <select
                   id="frutas"
@@ -187,8 +187,8 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
                 </select>
               </div>
             </div>
-            <div className="flex gap-2 w-[88%] mb-6">
-              <div className="flex flex-col  w-[30%]">
+            <div className="flex gap-2 w-[88%] mb-6 flex-wrap justify-center md:justify-start">
+              <div className="flex flex-col  w-[80%]  sm:w-[30%]">
                 <label htmlFor="">Valor NF</label>
                 <input
                   type="text"
@@ -197,7 +197,7 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
                   onChange={(e) => setNf_value(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col w-[80%]">
+              <div className="flex flex-col w-[80%] flex-wrap justify-center md:justify-start">
                 <span className="font-semibold">Recebido por</span>
 
                 <select
@@ -214,7 +214,7 @@ export default function RegisterNf({ onClose, setMensagemSucesso }: RegisterProp
               </div>
             </div>
             {tickets.map((ticket, index) => (
-              <div key={index} className={` border-2 p-2 rounded-xl justify-around w-[80%] ${ticketDisabled ? "hidden" : "flex"}`}>
+              <div key={index} className={` border-2 p-2 rounded-xl flex-col md:justify-start md:flex-row justify-around w-[80%] ${ticketDisabled ? "hidden" : "flex"}`}>
                 <input
                   type="number"
                   value={ticket.ticket_value}

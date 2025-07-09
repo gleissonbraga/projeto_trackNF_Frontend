@@ -46,7 +46,7 @@ export default function Login(){
                     {mensagemSucesso}
                 </div>
             )}
-            <div className="w-[40%] h-screen flex flex-col justify-center items-center">
+            <div className="w-full sm:w-[40%] h-screen flex flex-col justify-center items-center">
                 <div className="w-[80%] h-[500px] flex flex-col gap-6 justify-center items-center">
                     <h1 className="w-[90%] text-center font-semibold text-4xl text-blue-800">Faça Login</h1>
                     <form onSubmit={handleSubmit} className=" w-[90%] flex flex-col gap-4 items-center">
@@ -66,7 +66,7 @@ export default function Login(){
                     )}
                 </div>
             </div>
-            <div className="w-[80%] h-screen bg-green-300 bg-[url('/image-png/wp-login.png')] bg-cover bg-center">
+            <div className="sm:block hidden w-[80%] h-screen bg-green-300 bg-[url('/image-png/wp-login.png')] bg-cover bg-center">
             </div>
             
         </div>  

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import apiClient from "../../api/apiClient";
 import type { TypeSupplier } from "../types/Suppliers";
+import formatPhone from "../../utils/format/formatPhone";
+import cleanPhone from "../../utils/clean/cleanPhone";
 
 
-type TypeStatus = 'ATIVO' | 'INATIVO';
+
 interface UpdateProps {
   onClose: () => void;
   selectSupplier: TypeSupplier | null;
@@ -58,6 +60,7 @@ export default function UpdateSupplier({
     });
 
     const cnpj = cleanCNPJ(cnpjInput);
+    const phone = cleanPhone(phone_number)
 
     try {
       const response = await apiClient.put(
@@ -67,7 +70,7 @@ export default function UpdateSupplier({
           reason_name,
           cnpj,
           state_registration,
-          phone_number,
+          phone_number: phone,
           email,
           status: isActive ? "ATIVO" : "INATIVO"
         }
@@ -100,14 +103,14 @@ export default function UpdateSupplier({
     setReason_name(selectSupplier.reason_name || "");
     setCnpj(formatCNPJInput(selectSupplier.cnpj || ""));
     setState_registration(selectSupplier.state_registration || "");
-    setPhone_number(selectSupplier.phone_number || "");
+    setPhone_number(formatPhone(selectSupplier.phone_number || ""));
     setEmail(selectSupplier.email || "");
     setIsActive(selectSupplier.status === "ATIVO");
   }
 }, [selectSupplier]);
   return (
     <div className="fixed inset-0 bg-black backdrop-blur-[1.6px] bg-opacity-50 flex items-center justify-center z-50">
-      <div className="w-[40%] min-h-[500px] relative bg-white rounded-lg flex flex-col items-center">
+      <div className="w-[40%] min-h-[500px] relative bg-white rounded-lg flex flex-col items-center pb-10">
         <div className="absolut w-full bg-black flex justify-end rounded-t-lg ">
           <button
             className="relative bg-black text-center text-white hover:bg-red-600 text-xl font-bold w-[50px] h-[30px] rounded-tr-lg justify-center flex"
@@ -117,7 +120,7 @@ export default function UpdateSupplier({
           </button>
         </div>
         <div className="flex items-center justify-center w-[90%] mt-6">
-          <h2 className="w-[90%] text-center font-semibold text-4xl text-blue-800 p-2">
+          <h2 className="w-[90%] text-center font-semibold text-xl sm:text-4xl text-blue-800 p-2">
             Atualizar Fornecedor
           </h2>
         </div>
@@ -162,7 +165,7 @@ export default function UpdateSupplier({
               <input
                 type="text"
                 placeholder="CNPJ"
-                className={` p-2  w-[56%] border-b-2 border-gray-600
+                className={` p-2  w-[100%] sm:w-[56%] border-b-2 border-gray-600
                 ${erro.cnpj ? " border-red-500 bg-red-100 border-2 " : ""}`}
                 maxLength={18}
                 value={cnpjInput}
@@ -171,7 +174,7 @@ export default function UpdateSupplier({
               <input
                 type="text"
                 placeholder="Inscriçao Estadual"
-                className={` p-2  w-[40%] border-b-2 border-gray-600
+                className={` p-2  w-[100%] sm:w-[40%] border-b-2 border-gray-600
                   ${
                     erro.state_registration
                       ? " border-red-500 bg-red-100 border-2 "
@@ -195,16 +198,17 @@ export default function UpdateSupplier({
               <input
                 type="text"
                 placeholder="Email"
-                className=" p-2  w-[56%] border-b-2 border-gray-600"
+                className=" p-2  w-[100%] sm:w-[56%] border-b-2 border-gray-600"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Telefone"
-                className=" p-2 w-[40%] border-b-2 border-gray-600"
+                className=" p-2 w-[100%] sm:w-[40%] border-b-2 border-gray-600"
+                maxLength={15}
                 value={phone_number}
-                onChange={(e) => setPhone_number(e.target.value)}
+                onChange={(e) => setPhone_number(formatPhone(e.target.value))}
               />
             </div>
             <div className="flex items-center justify-start w-full mt-2 px-2">
